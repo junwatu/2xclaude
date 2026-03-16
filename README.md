@@ -2,7 +2,7 @@
 
 A lightweight macOS menu bar app that shows when Claude's **2x bonus usage** is active.
 
-![Menu Bar](screenshot-menubar.png)
+![2x Claude Menu Bar App](screenshot.png)
 
 ## About the Promotion
 
