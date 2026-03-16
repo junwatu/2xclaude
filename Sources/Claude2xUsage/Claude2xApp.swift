@@ -18,15 +18,17 @@ enum MascotIcon {
     private static let mascotHeight: CGFloat = 18
 
     static func load() -> NSImage? {
-        // Look for mascot.png next to the executable, then in the working directory
+        // 1. Bundle Resources (packaged .app)
+        if let url = Bundle.main.url(forResource: "mascot", withExtension: "png"),
+           let img = NSImage(contentsOf: url) {
+            return img
+        }
+        // 2. Next to the executable (swift run / dev builds)
         let candidates = [
             Bundle.main.bundlePath + "/../mascot.png",
-            Bundle.main.resourcePath.map { $0 + "/mascot.png" },
             FileManager.default.currentDirectoryPath + "/mascot.png",
-            // Also check the project root (common when running via `swift run`)
             (#file as NSString).deletingLastPathComponent + "/../../../mascot.png"
-        ].compactMap { $0 }
-
+        ]
         for path in candidates {
             let resolved = (path as NSString).standardizingPath
             if let img = NSImage(contentsOfFile: resolved) {
